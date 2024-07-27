@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import Experience from "../Experience/Experience";
 
-function Canvas() {
+export const Canvas = () => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -13,6 +13,5 @@ function Canvas() {
   }, []);
 
   return <canvas ref={canvasRef} className="webgl"></canvas>;
-}
+};
 
-export default Canvas;

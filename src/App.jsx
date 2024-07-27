@@ -1,4 +1,4 @@
-import Canvas from "./components/Canvas";
+import { Canvas, Loader } from "@/components";
 import { ContextProvider } from "./context";
 
 function App() {
@@ -6,6 +6,7 @@ function App() {
     <ContextProvider>
       <p className="text-red-500">Hello Threejs</p>
       <Canvas />
+      <Loader />
     </ContextProvider>
   );
 }
