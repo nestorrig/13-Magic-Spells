@@ -1,7 +1,5 @@
 import * as THREE from 'three'
-import Experience from './Experience.js'
-import WebGPURenderer from "three/examples/jsm/renderers/webgpu/WebGPURenderer.js";
-import { color, rangeFog, uniform } from "three/examples/jsm/nodes/Nodes.js";
+import Experience from "./Experience.js";
 
 export default class Renderer {
   constructor() {
@@ -15,7 +13,7 @@ export default class Renderer {
   }
 
   setInstance() {
-    this.instance = new WebGPURenderer({
+    this.instance = new THREE.WebGLRenderer({
       canvas: this.canvas,
       antialias: true,
     });
@@ -26,9 +24,6 @@ export default class Renderer {
     this.instance.setClearColor("#211d20");
     this.instance.setSize(this.sizes.width, this.sizes.height);
     this.instance.setPixelRatio(this.sizes.pixelRatio);
-
-    // const colorBackUniform = uniform(color("#19191f"));
-    // this.scene.fogNode = rangeFog(colorBackUniform, 5, 30);
   }
 
   resize() {
@@ -37,6 +32,6 @@ export default class Renderer {
   }
 
   update() {
-    this.instance.renderAsync(this.scene, this.camera.instance);
+    this.instance.render(this.scene, this.camera.instance);
   }
 }

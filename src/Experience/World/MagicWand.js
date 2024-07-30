@@ -22,6 +22,7 @@ export default class MagicWand {
       this.debugFolder = this.debug.ui.addFolder("MagicWand");
     }
 
+    this.setTextures();
     this.setWand();
     this.setAnimation();
   }
@@ -34,7 +35,6 @@ export default class MagicWand {
       this.debugObject.radialSegments,
       this.debugObject.heightSegments
     );
-    this.material = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
     this.magicWand = new THREE.Mesh(this.geometry, this.material);
     this.magicWand.castShadow = true;
 
@@ -43,7 +43,7 @@ export default class MagicWand {
 
     // Debug
     if (this.debug.active) {
-      // this.debug.genaralHelper(this.magicWand, "magicWand");
+      this.debug.genaralHelper(this.magicWand, "magicWand");
       this.debugFolder
         .add(this.debugObject, "radiusTop")
         .min(0.01)
@@ -79,6 +79,9 @@ export default class MagicWand {
         .step(1)
         .name("Height Segments")
         .onChange(() => this.updateGeometry());
+
+      this.debugFolder.changeTexture = () => this.changeTexture();
+      this.debugFolder.add(this.debugFolder, "changeTexture");
     }
   }
 
@@ -108,6 +111,41 @@ export default class MagicWand {
 
   setAnimation() {
     this.animation = {};
+  }
+
+  setTextures() {
+    this.textures = {};
+    console.log(this.resources.items);
+    this.textures.color = this.resources.items.woodTableColorTexture;
+
+    this.textures.normal = this.resources.items.woodTableNormalTexture;
+
+    this.textures.displacement =
+      this.resources.items.woodTableDisplacementTexture;
+
+    this.textures.ARM = this.resources.items.woodTableARMTexture;
+
+    this.material = new THREE.MeshStandardMaterial({
+      map: this.textures.color,
+      normalMap: this.textures.normal,
+      displacementMap: this.textures.displacement,
+      displacementScale: 0.1,
+      displacementBias: -0.05,
+      aoMap: this.textures.ARM,
+      roughnessMap: this.textures.ARM,
+      metalnessMap: this.textures.ARM,
+    });
+  }
+
+  changeTexture() {
+    this.magicWand.material.map = this.resources.items.rosewoodVeneerColorTexture;
+    this.magicWand.material.normalMap = this.resources.items.rosewoodVeneerNormalTexture;
+    this.magicWand.material.displacementMap = this.resources.items.rosewoodVeneerDisplacementTexture;
+    this.magicWand.material.displacementScale = 0;
+    this.magicWand.material.displacementBias = 0;
+    this.magicWand.material.aoMap = this.resources.items.rosewoodVeneerARMTexture;
+    this.magicWand.material.roughnessMap = this.resources.items.rosewoodVeneerARMTexture;
+    this.magicWand.material.metalnessMap = this.resources.items.rosewoodVeneerARMTexture;
   }
 
   update() {
