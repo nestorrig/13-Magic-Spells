@@ -128,9 +128,6 @@ export default class MagicWand {
     this.material = new THREE.MeshStandardMaterial({
       map: this.textures.color,
       normalMap: this.textures.normal,
-      displacementMap: this.textures.displacement,
-      displacementScale: 0.1,
-      displacementBias: -0.05,
       aoMap: this.textures.ARM,
       roughnessMap: this.textures.ARM,
       metalnessMap: this.textures.ARM,
@@ -140,9 +137,6 @@ export default class MagicWand {
   changeTexture() {
     this.magicWand.material.map = this.resources.items.rosewoodVeneerColorTexture;
     this.magicWand.material.normalMap = this.resources.items.rosewoodVeneerNormalTexture;
-    this.magicWand.material.displacementMap = this.resources.items.rosewoodVeneerDisplacementTexture;
-    this.magicWand.material.displacementScale = 0;
-    this.magicWand.material.displacementBias = 0;
     this.magicWand.material.aoMap = this.resources.items.rosewoodVeneerARMTexture;
     this.magicWand.material.roughnessMap = this.resources.items.rosewoodVeneerARMTexture;
     this.magicWand.material.metalnessMap = this.resources.items.rosewoodVeneerARMTexture;

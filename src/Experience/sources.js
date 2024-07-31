@@ -45,11 +45,6 @@ export default [
     type: "texture",
     path: "textures/wands/woodTable/wood_table_worn_disp_1k.webp",
   },
-  {
-    name: "woodTableDisplacementTexture",
-    type: "texture",
-    path: "textures/wands/woodTable/wood_table_worn_nor_gl_1k.webp",
-  },
   // fineGrainedWood
   {
     name: "fineGrainedWoodARMTexture",
@@ -66,11 +61,6 @@ export default [
     type: "texture",
     path: "textures/wands/fineGrainedWood/fine_grained_wood_nor_gl_2k.webp",
   },
-  // {
-  //   name: "plywoodDisplacementTexture",
-  //   type: "texture",
-  //   path: "textures/wands/plywood/plywood_nor_gl_2k.jpg",
-  // },
   // rosewoodVeneer
   {
     name: "rosewoodVeneerARMTexture",
@@ -87,28 +77,38 @@ export default [
     type: "texture",
     path: "textures/wands/rosewoodVeneer/rosewood_veneer1_nor_gl_1k.webp",
   },
+  // beigeWall
   {
-    name: "rosewoodVeneerDisplacementTexture",
+    name: "beigeWallARMTexture",
     type: "texture",
-    path: "textures/wands/rosewoodVeneer/rosewood_veneer1_disp_1k.webp",
+    path: "textures/wands/beigeWall/beige_wall_001_arm_2k.webp",
   },
-
-  // rocks
-  // {
-  //     name: 'grassNormalTexture',
-  //     type: 'texture',
-  //     path: 'textures/dirt/normal.jpg'
-  // },
-  // {
-  //     name: 'grassNormalTexture',
-  //     type: 'texture',
-  //     path: 'textures/dirt/normal.jpg'
-  // },
-  // {
-  //     name: 'grassNormalTexture',
-  //     type: 'texture',
-  //     path: 'textures/dirt/normal.jpg'
-  // },
+  {
+    name: "beigeWallColorTexture",
+    type: "texture",
+    path: "textures/wands/beigeWall/beige_wall_001_diff_2k.webp",
+  },
+  {
+    name: "beigeWallNormalTexture",
+    type: "texture",
+    path: "textures/wands/beigeWall/beige_wall_001_nor_gl_2k.webp",
+  },
+  // leatherRed
+  {
+    name: "leatherRedARMTexture",
+    type: "texture",
+    path: "textures/wands/leatherRed/leather_red_02_arm_2k.webp",
+  },
+  {
+    name: "leatherRedColorTexture",
+    type: "texture",
+    path: "textures/wands/leatherRed/leather_red_02_coll1_2k.webp",
+  },
+  {
+    name: "leatherRedNormalTexture",
+    type: "texture",
+    path: "textures/wands/leatherRed/leather_red_02_nor_gl_2k.webp",
+  },
 
   // * Models
 
