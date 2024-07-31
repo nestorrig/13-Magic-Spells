@@ -41,7 +41,7 @@ export default class Resources extends EventEmitter {
 
   sourceLoaded(source, file) {
     this.items[source.name] = file;
-    console.log(this.loaded);
+    console.log(source.name);
 
     this.loaded++;
 

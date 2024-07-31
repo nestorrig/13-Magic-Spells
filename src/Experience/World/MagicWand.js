@@ -1,5 +1,7 @@
 import * as THREE from "three";
 import Experience from "../Experience.js";
+import { EVENTS, observerEmitter } from "@/Events/Events";
+import gsap from "gsap";
 
 export default class MagicWand {
   constructor() {
@@ -25,6 +27,7 @@ export default class MagicWand {
     this.setTextures();
     this.setWand();
     this.setAnimation();
+    this.changeTextureEvent();
   }
 
   setWand() {
@@ -44,44 +47,6 @@ export default class MagicWand {
     // Debug
     if (this.debug.active) {
       this.debug.genaralHelper(this.magicWand, "magicWand");
-      this.debugFolder
-        .add(this.debugObject, "radiusTop")
-        .min(0.01)
-        .max(1)
-        .step(0.01)
-        .name("Radius Top")
-        .onChange(() => this.updateGeometry());
-      this.debugFolder
-        .add(this.debugObject, "radiusBottom")
-        .min(0.01)
-        .max(1)
-        .step(0.01)
-        .name("Radius Bottom")
-        .onChange(() => this.updateGeometry());
-      this.debugFolder
-        .add(this.debugObject, "height")
-        .min(1)
-        .max(10)
-        .step(0.01)
-        .name("Height")
-        .onChange(() => this.updateGeometry());
-      this.debugFolder
-        .add(this.debugObject, "radialSegments")
-        .min(3)
-        .max(64)
-        .step(1)
-        .name("Radial Segments")
-        .onChange(() => this.updateGeometry());
-      this.debugFolder
-        .add(this.debugObject, "heightSegments")
-        .min(1)
-        .max(64)
-        .step(1)
-        .name("Height Segments")
-        .onChange(() => this.updateGeometry());
-
-      this.debugFolder.changeTexture = () => this.changeTexture();
-      this.debugFolder.add(this.debugFolder, "changeTexture");
     }
   }
 
@@ -114,32 +79,103 @@ export default class MagicWand {
   }
 
   setTextures() {
-    this.textures = {};
-    console.log(this.resources.items);
-    this.textures.color = this.resources.items.woodTableColorTexture;
-
-    this.textures.normal = this.resources.items.woodTableNormalTexture;
-
-    this.textures.displacement =
-      this.resources.items.woodTableDisplacementTexture;
-
-    this.textures.ARM = this.resources.items.woodTableARMTexture;
-
     this.material = new THREE.MeshStandardMaterial({
-      map: this.textures.color,
-      normalMap: this.textures.normal,
-      aoMap: this.textures.ARM,
-      roughnessMap: this.textures.ARM,
-      metalnessMap: this.textures.ARM,
+      map: this.resources.items.woodTableColorTexture,
+      normalMap: this.resources.items.woodTableNormalTexture,
+      aoMap: this.resources.items.woodTableARMTexture,
+      roughnessMap: this.resources.items.woodTableARMTexture,
+      metalnessMap: this.resources.items.woodTableARMTexture,
     });
   }
 
-  changeTexture() {
-    this.magicWand.material.map = this.resources.items.rosewoodVeneerColorTexture;
-    this.magicWand.material.normalMap = this.resources.items.rosewoodVeneerNormalTexture;
-    this.magicWand.material.aoMap = this.resources.items.rosewoodVeneerARMTexture;
-    this.magicWand.material.roughnessMap = this.resources.items.rosewoodVeneerARMTexture;
-    this.magicWand.material.metalnessMap = this.resources.items.rosewoodVeneerARMTexture;
+  changeTextureEvent() {
+    observerEmitter.on(EVENTS.CHANGE_TEXTURE, (texture) => {
+      console.log(texture);
+      this.animationScale();
+      switch (texture) {
+        case "Texture 1":
+          this.magicWand.material.map =
+            this.resources.items.woodTableColorTexture;
+          this.magicWand.material.normalMap =
+            this.resources.items.woodTableNormalTexture;
+          this.magicWand.material.aoMap =
+            this.resources.items.woodTableARMTexture;
+          this.magicWand.material.roughnessMap =
+            this.resources.items.woodTableARMTexture;
+          this.magicWand.material.metalnessMap =
+            this.resources.items.woodTableARMTexture;
+          break;
+        case "Texture 2":
+          this.magicWand.material.map =
+            this.resources.items.fineGrainedWoodColorTexture;
+          this.magicWand.material.normalMap =
+            this.resources.items.fineGrainedWoodNormalTexture;
+          this.magicWand.material.aoMap =
+            this.resources.items.fineGrainedWoodARMTexture;
+          this.magicWand.material.roughnessMap =
+            this.resources.items.fineGrainedWoodARMTexture;
+          this.magicWand.material.metalnessMap =
+            this.resources.items.fineGrainedWoodARMTexture;
+          break;
+        case "Texture 3":
+          this.magicWand.material.map =
+            this.resources.items.rosewoodVeneerColorTexture;
+          this.magicWand.material.normalMap =
+            this.resources.items.rosewoodVeneerNormalTexture;
+          this.magicWand.material.aoMap =
+            this.resources.items.rosewoodVeneerARMTexture;
+          this.magicWand.material.roughnessMap =
+            this.resources.items.rosewoodVeneerARMTexture;
+          this.magicWand.material.metalnessMap =
+            this.resources.items.rosewoodVeneerARMTexture;
+          break;
+        case "Texture 4":
+          this.magicWand.material.map =
+            this.resources.items.beigeWallColorTexture;
+          this.magicWand.material.normalMap =
+            this.resources.items.beigeWallNormalTexture;
+          this.magicWand.material.aoMap =
+            this.resources.items.beigeWallARMTexture;
+          this.magicWand.material.roughnessMap =
+            this.resources.items.beigeWallARMTexture;
+          this.magicWand.material.metalnessMap =
+            this.resources.items.beigeWallARMTexture;
+          break;
+        case "Texture 5":
+          this.magicWand.material.map =
+            this.resources.items.leatherRedColorTexture;
+          this.magicWand.material.normalMap =
+            this.resources.items.leatherRedNormalTexture;
+          this.magicWand.material.aoMap =
+            this.resources.items.leatherRedARMTexture;
+          this.magicWand.material.roughnessMap =
+            this.resources.items.leatherRedARMTexture;
+          this.magicWand.material.metalnessMap =
+            this.resources.items.leatherRedARMTexture;
+          break;
+
+        default:
+          break;
+      }
+    });
+  }
+
+  animationScale() {
+    gsap.fromTo(
+      this.magicWand.scale,
+      {
+        x: 0.1,
+        y: 0.1,
+        z: 0.1,
+      },
+      {
+        x: 1,
+        y: 1,
+        z: 1,
+        duration: 1,
+        ease: "elastic.out(1, 0.3)",
+      }
+    );
   }
 
   update() {

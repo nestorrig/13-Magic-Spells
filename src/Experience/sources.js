@@ -43,7 +43,7 @@ export default [
   {
     name: "woodTableNormalTexture",
     type: "texture",
-    path: "textures/wands/woodTable/wood_table_worn_disp_1k.webp",
+    path: "textures/wands/woodTable/wood_table_worn_nor_gl_1k.webp",
   },
   // fineGrainedWood
   {
