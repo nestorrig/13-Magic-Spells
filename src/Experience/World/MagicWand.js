@@ -41,37 +41,18 @@ export default class MagicWand {
     this.magicWand = new THREE.Mesh(this.geometry, this.material);
     this.magicWand.castShadow = true;
 
-    this.magicWand.position.set(0, 0.5, 0);
+    this.magicWand.position.set(0, 2.6, -7);
     this.scene.add(this.magicWand);
 
     // Debug
     if (this.debug.active) {
       this.debug.genaralHelper(this.magicWand, "magicWand");
+
+      this.debugFolder.animateSpell = () => {
+        this.animateSpell();
+      };
+      this.debugFolder.add(this.debugFolder, "animateSpell");
     }
-  }
-
-  updateGeometry() {
-    console.log("Updating geometry");
-
-    // Dispose the old geometry
-    this.magicWand.geometry.dispose();
-
-    // Create the new geometry
-    const newGeometry = new THREE.CylinderGeometry(
-      this.debugObject.radiusTop,
-      this.debugObject.radiusBottom,
-      this.debugObject.height,
-      this.debugObject.radialSegments,
-      this.debugObject.heightSegments
-    );
-
-    // Update the mesh geometry
-    this.magicWand.geometry = newGeometry;
-
-    // If necessary, update other properties or add/remove the mesh from the scene
-    this.scene.remove(this.magicWand);
-    this.magicWand = new THREE.Mesh(newGeometry, this.material);
-    this.scene.add(this.magicWand);
   }
 
   setAnimation() {
@@ -176,6 +157,25 @@ export default class MagicWand {
         ease: "elastic.out(1, 0.3)",
       }
     );
+  }
+  animateSpell() {
+    gsap.fromTo(
+      this.magicWand.rotation, {
+        x: 0,
+      },
+      {
+        x: 1.6,
+        
+        duration: 1,
+        ease: "elastic.out(1, 0.5)",
+      }
+    );
+    gsap.to(this.magicWand.rotation, {
+      x: 0,
+      duration: 1,
+      delay: 0.7,
+      ease: "elastic.out(1, 0.5)",
+    });
   }
 
   update() {

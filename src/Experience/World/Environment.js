@@ -92,11 +92,17 @@ export default class Environment {
 
     this.effectController = {
       turbidity: 5.2,
-      rayleigh: 4,
-      mieCoefficient: 0.005,
+      rayleigh: 0.184,
+      mieCoefficient: 0.001,
       mieDirectionalG: 0.8,
-      elevation: 0.7,
+      elevation: 5,
       azimuth: 9.9,
+      // turbidity: 5.2,
+      // rayleigh: 4,
+      // mieCoefficient: 0.005,
+      // mieDirectionalG: 0.8,
+      // elevation: 0.7,
+      // azimuth: 9.9,
       //   exposure: this.renderer.toneMappingExposure,
     };
 

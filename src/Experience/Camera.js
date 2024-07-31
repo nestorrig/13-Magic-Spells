@@ -3,6 +3,27 @@ import Experience from './Experience.js'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import gsap from "gsap";
 
+const cameraPlaces = {
+  center: {
+    position: new THREE.Vector3(0, 0, 0),
+    target: new THREE.Vector3(0, 0, 0),
+    duration: 2,
+  },
+  initial: {
+    position: new THREE.Vector3(1.306, 3.359, -6.016),
+    target: new THREE.Vector3(0.067, 2.688, -6.948),
+    duration: 2,
+  },
+  top: {
+    position: new THREE.Vector3(-0.437, 3.712, -9.027),
+    target: new THREE.Vector3(-0.247, 2.62, -6.67),
+    duration: 2,
+    // position: new THREE.Vector3(-0.1317, 3.23, -9.2),
+    // target: new THREE.Vector3(-0.247, 2.62, -6.67),
+    // duration: 2,
+  },
+};
+
 export default class Camera {
   constructor() {
     this.experience = new Experience();
@@ -26,7 +47,7 @@ export default class Camera {
       0.1,
       1000
     );
-    this.instance.position.set(6, 4, 8);
+    this.instance.position.set(1.306, 3.359, -6.016);
     this.scene.add(this.instance);
 
     // Debug
@@ -57,6 +78,7 @@ export default class Camera {
 
   setControls() {
     this.controls = new OrbitControls(this.instance, this.canvas);
+    this.controls.target.set(0.067, 2.688, -6.948);
     this.controls.enableDamping = true;
 
     if (this.debug.active) {
@@ -84,23 +106,23 @@ export default class Camera {
 
       this.debugFolder.moveCamera1 = () => {
         this.animateCamera(
-          new THREE.Vector3(0, 0, 0),
-          new THREE.Vector3(0, 0, 0),
-          2
+          cameraPlaces.center.position,
+          cameraPlaces.center.target,
+          cameraPlaces.center.duration
         );
       };
       this.debugFolder.moveCamera2 = () => {
         this.animateCamera(
-          new THREE.Vector3(0, 0, 5),
-          new THREE.Vector3(0, 0, 0),
-          2
+          cameraPlaces.initial.position,
+          cameraPlaces.initial.target,
+          cameraPlaces.initial.duration
         );
       };
       this.debugFolder.moveCamera3 = () => {
         this.animateCamera(
-          new THREE.Vector3(0, 5, 0),
-          new THREE.Vector3(0, 0, 0),
-          2
+          cameraPlaces.top.position,
+          cameraPlaces.top.target,
+          cameraPlaces.top.duration
         );
       };
       this.debugFolder.moveCamera4 = () => {
