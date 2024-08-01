@@ -117,4 +117,19 @@ export default [
     type: "gltfModel",
     path: "models/Fox/glTF/Fox.gltf",
   },
+  {
+    name: "picnicTableModel",
+    type: "gltfModel",
+    path: "models/wooden_picnic_table_1k/wooden_picnic_table_1k.gltf",
+  },
+  {
+    name: "rocksModel",
+    type: "gltfModel",
+    path: "models/rock_moss_set_01_1k/rock_moss_set_01_1k.gltf",
+  },
+  {
+    name: "treeModel",
+    type: "gltfModel",
+    path: "models/island_tree_02_1k/island_tree_02_1k.gltf",
+  },
 ];

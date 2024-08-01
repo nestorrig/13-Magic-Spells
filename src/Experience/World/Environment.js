@@ -17,7 +17,7 @@ export default class Environment {
 
     this.setSunLight();
     this.setAmbientLight();
-    this.setSky();
+    // this.setSky();
   }
 
   setSunLight() {
@@ -87,6 +87,7 @@ export default class Environment {
     this.sky = new Sky();
     this.sky.scale.setScalar(450000);
     this.scene.add(this.sky);
+    console.log("sky");
 
     this.sun = new THREE.Vector3();
 
@@ -105,6 +106,7 @@ export default class Environment {
       // azimuth: 9.9,
       //   exposure: this.renderer.toneMappingExposure,
     };
+
 
     const guiChanged = () => {
       const uniforms = this.sky.material.uniforms;
@@ -125,12 +127,13 @@ export default class Environment {
       //   this.renderer.toneMappingExposure = this.effectController.exposure;
       //   this.renderer.render(this.scene, this.camera);
     };
+    guiChanged();
     if (this.debug.active) {
       this.debugFolder
         .add(this.effectController, "turbidity", 0.0, 20.0, 0.1)
         .onChange(guiChanged);
       this.debugFolder
-        .add(this.effectController, "rayleigh", 0.0, 4, 0.001)
+        .add(this.effectController, "rayleigh", 0.0, 8, 0.001)
         .onChange(guiChanged);
       this.debugFolder
         .add(this.effectController, "mieCoefficient", 0.0, 0.1, 0.001)
@@ -153,6 +156,6 @@ export default class Environment {
   }
   update() {
     // console.log(this.starsMaterial.uniforms.time.value);
-    this.starsMaterial.uniforms.time.value += 0.01;
+    // this.starsMaterial.uniforms.time.value += 0.01;
   }
 }

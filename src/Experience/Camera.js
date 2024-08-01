@@ -15,7 +15,7 @@ const cameraPlaces = {
     duration: 2,
   },
   top: {
-    position: new THREE.Vector3(-0.437, 3.712, -9.027),
+    position: new THREE.Vector3(-0.4673, 3.4236, -9.403),
     target: new THREE.Vector3(-0.247, 2.62, -6.67),
     duration: 2,
     // position: new THREE.Vector3(-0.1317, 3.23, -9.2),
