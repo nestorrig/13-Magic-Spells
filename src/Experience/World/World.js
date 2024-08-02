@@ -27,5 +27,6 @@ export default class World {
   update() {
     // if(this.fox)
     // this.fox.update()
+    if (this.rocks) this.rocks.update();
   }
 }

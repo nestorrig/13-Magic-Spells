@@ -21,12 +21,12 @@ export default class Environment {
   }
 
   setSunLight() {
-    this.sunLight = new THREE.DirectionalLight("#ffffff", 1);
+    this.sunLight = new THREE.DirectionalLight("#ffffff", 1.5);
     this.sunLight.castShadow = true;
     this.sunLight.shadow.camera.far = 15;
     this.sunLight.shadow.mapSize.set(1024, 1024);
     this.sunLight.shadow.normalBias = 0.05;
-    this.sunLight.position.set(0.38, 2, 2.074);
+    this.sunLight.position.set(0.38, 2, -0.75);
     this.scene.add(this.sunLight);
 
     // Debug
@@ -107,7 +107,6 @@ export default class Environment {
       //   exposure: this.renderer.toneMappingExposure,
     };
 
-
     const guiChanged = () => {
       const uniforms = this.sky.material.uniforms;
       uniforms["turbidity"].value = this.effectController.turbidity;
@@ -154,8 +153,5 @@ export default class Environment {
       guiChanged();
     }
   }
-  update() {
-    // console.log(this.starsMaterial.uniforms.time.value);
-    // this.starsMaterial.uniforms.time.value += 0.01;
-  }
+  update() {}
 }

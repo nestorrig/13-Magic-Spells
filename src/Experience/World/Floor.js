@@ -19,9 +19,8 @@ export default class Floor {
 
   setTextures() {
     this.textures = {};
-    console.log(this.resources.items);
     this.textures.color = this.resources.items.floorColorTexture;
-    // this.textures.color.colorSpace = THREE.SRGBColorSpace;
+    this.textures.color.colorSpace = THREE.SRGBColorSpace;
     this.textures.color.repeat.set(1.5, 1.5);
     this.textures.color.wrapS = THREE.RepeatWrapping;
     this.textures.color.wrapT = THREE.RepeatWrapping;

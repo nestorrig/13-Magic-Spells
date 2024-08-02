@@ -41,7 +41,8 @@ export default class Resources extends EventEmitter {
 
   sourceLoaded(source, file) {
     this.items[source.name] = file;
-    console.log(source.name);
+    // console.log(source.name); // si hay un error en el nombre de la textura, se puede ver aquí
+    // si alguna ruta esta mal en la textura, jamas se cargara la experiencia
 
     this.loaded++;
 

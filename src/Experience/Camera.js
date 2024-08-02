@@ -22,6 +22,21 @@ const cameraPlaces = {
     // target: new THREE.Vector3(-0.247, 2.62, -6.67),
     // duration: 2,
   },
+  topTree: {
+    position: new THREE.Vector3(0.9113, 4.7316, -5.098),
+    target: new THREE.Vector3(2.019, 1.35, 1.887),
+    duration: 2,
+  },
+  topTable: {
+    position: new THREE.Vector3(0.4873, 2.4733, -5.6239),
+    target: new THREE.Vector3(0.5, -0.1501, 1.6),
+    duration: 2,
+  },
+  topRocks: {
+    position: new THREE.Vector3(-2.3564, 3.1795, -2.3481),
+    target: new THREE.Vector3(-1.3, 0.718, 1.711),
+    duration: 2,
+  },
 };
 
 export default class Camera {
@@ -34,7 +49,6 @@ export default class Camera {
 
     if (this.debug.active) {
       this.debugFolder = this.debug.ui.addFolder("Camera");
-      console.log(this.debug);
     }
     this.setInstance();
     this.setControls();
@@ -127,16 +141,23 @@ export default class Camera {
       };
       this.debugFolder.moveCamera4 = () => {
         this.animateCamera(
-          new THREE.Vector3(5, 0, 0),
-          new THREE.Vector3(0, 0, 0),
-          2
+          cameraPlaces.topTree.position,
+          cameraPlaces.topTree.target,
+          cameraPlaces.topTree.duration
         );
       };
       this.debugFolder.moveCamera5 = () => {
         this.animateCamera(
-          new THREE.Vector3(0, 5, 5),
-          new THREE.Vector3(0, 5, 0),
-          2
+          cameraPlaces.topTable.position,
+          cameraPlaces.topTable.target,
+          cameraPlaces.topTable.duration
+        );
+      };
+      this.debugFolder.moveCamera6 = () => {
+        this.animateCamera(
+          cameraPlaces.topRocks.position,
+          cameraPlaces.topRocks.target,
+          cameraPlaces.topRocks.duration
         );
       };
       this.debugFolder.add(this.debugFolder, "moveCamera1");
@@ -144,6 +165,7 @@ export default class Camera {
       this.debugFolder.add(this.debugFolder, "moveCamera3");
       this.debugFolder.add(this.debugFolder, "moveCamera4");
       this.debugFolder.add(this.debugFolder, "moveCamera5");
+      this.debugFolder.add(this.debugFolder, "moveCamera6");
     }
   }
 

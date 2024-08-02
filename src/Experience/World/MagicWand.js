@@ -71,7 +71,6 @@ export default class MagicWand {
 
   changeTextureEvent() {
     observerEmitter.on(EVENTS.CHANGE_TEXTURE, (texture) => {
-      console.log(texture);
       this.animationScale();
       switch (texture) {
         case "Texture 1":
