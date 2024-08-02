@@ -2,6 +2,9 @@ import * as THREE from "three";
 import Experience from "../Experience.js";
 import gsap from "gsap";
 
+import vertexShader from "@/Shaders/Portal/vertex.glsl";
+import fragmentShader from "@/Shaders/Portal/fragment.glsl";
+
 export default class Table {
   constructor() {
     this.experience = new Experience();
@@ -50,13 +53,28 @@ export default class Table {
   }
 
   setPortal() {
-    const portalGeometry = new THREE.PlaneGeometry(2.5, 1.5);
-    const portalMaterial = new THREE.MeshBasicMaterial({
-      color: 0x00ff00,
-      side: THREE.DoubleSide,
+    const shape = new THREE.Shape();
+    const x = 0,
+      y = 0;
+    const width = 1.5,
+      height = 1.25; // Tamaño del óvalo
+
+    shape.moveTo(x, y - height);
+    shape.absellipse(x, y, width, height, 0, Math.PI * 2, false, 0);
+
+    const portalGeometry = new THREE.ShapeGeometry(shape);
+    const portalMaterial = new THREE.ShaderMaterial({
+      vertexShader: vertexShader,
+      fragmentShader: fragmentShader,
+      uniforms: {
+        u_time: { type: "f", value: 1.0 },
+        u_resolution: { type: "v2", value: new THREE.Vector2() },
+        u_mouse: { type: "v2", value: new THREE.Vector2() },
+      },
     });
     this.portal = new THREE.Mesh(portalGeometry, portalMaterial);
     this.portal.scale.set(0, 0, 0);
+    this.portal.rotation.set(0, Math.PI, 0);
     this.portal.position.set(0.5, 0.5, 1.5); // Posición detrás de la mesa
     this.scene.add(this.portal);
     if (this.debug.active) {
@@ -107,5 +125,7 @@ export default class Table {
 
   update() {
     // this.animation.mixer.update(this.time.delta * 0.001)
+    if (this.portal)
+      this.portal.material.uniforms.u_time.value = this.time.elapsed * 0.001;
   }
 }

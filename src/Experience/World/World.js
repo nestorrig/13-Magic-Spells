@@ -2,6 +2,7 @@ import Experience from '../Experience.js'
 import Environment from './Environment.js'
 import Floor from './Floor.js'
 import MagicWand from "./MagicWand.js";
+import Particles from "./Particles.js";
 import Rocks from "./Rocks.js";
 import Table from "./Table.js";
 import Tree from "./Tree.js";
@@ -21,12 +22,15 @@ export default class World {
       this.tree = new Tree();
       this.rocks = new Rocks();
       this.table = new Table();
+      this.particles = new Particles();
     });
   }
 
   update() {
     // if(this.fox)
     // this.fox.update()
+    if (this.table) this.table.update();
     if (this.rocks) this.rocks.update();
+    if (this.particles) this.particles.update();
   }
 }
