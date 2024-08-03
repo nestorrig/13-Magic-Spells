@@ -14,6 +14,11 @@ const cameraPlaces = {
     target: new THREE.Vector3(0.067, 2.688, -6.948),
     duration: 2,
   },
+  reset: {
+    position: new THREE.Vector3(-0.292, 3.154, -5.368),
+    target: new THREE.Vector3(-0.058, 2.733, -6.72),
+    duration: 2,
+  },
   top: {
     position: new THREE.Vector3(-0.4673, 3.4236, -9.403),
     target: new THREE.Vector3(-0.247, 2.62, -6.67),
@@ -160,6 +165,15 @@ export default class Camera {
           cameraPlaces.topRocks.duration
         );
       };
+      this.debugFolder.resetCamera = () => {
+        this.animateCamera(
+          cameraPlaces.reset.position,
+          cameraPlaces.reset.target,
+          cameraPlaces.reset.duration
+        );
+      };
+
+      this.debugFolder.add(this.debugFolder, "resetCamera");
       this.debugFolder.add(this.debugFolder, "moveCamera1");
       this.debugFolder.add(this.debugFolder, "moveCamera2");
       this.debugFolder.add(this.debugFolder, "moveCamera3");

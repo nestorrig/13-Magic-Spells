@@ -17,6 +17,7 @@ export default class Environment {
 
     this.setSunLight();
     this.setAmbientLight();
+    this.setPointLight();
     // this.setSky();
   }
 
@@ -80,6 +81,53 @@ export default class Environment {
         .onChange((color) => {
           this.ambientLight.color.set(color);
         });
+    }
+  }
+
+  setPointLight() {
+    this.pointLight = new THREE.PointLight("#FFAF00", 1, 7, 2);
+    this.pointLight.castShadow = true;
+    this.pointLight.shadow.camera.far = 7;
+    this.pointLight.shadow.mapSize.set(1024, 1024);
+    this.pointLight.shadow.normalBias = 0.05;
+    this.pointLight.position.set(-0.07, 3, -6.57);
+    // this.pointLight.position.set(-0.07, 3, -6.57);
+
+    this.pointLightHelper = new THREE.PointLightHelper(this.pointLight, 0.1);
+    this.scene.add(this.pointLightHelper);
+
+    this.scene.add(this.pointLight);
+
+    // Debug
+
+    if (this.debug.active) {
+      this.debugFolder
+        .add(this.pointLight, "intensity")
+        .name("pointLightIntensity")
+        .min(0)
+        .max(10)
+        .step(0.001);
+
+      this.debugFolder
+        .add(this.pointLight.position, "x")
+        .name("pointLightX")
+        .min(-10)
+        .max(10)
+        .step(0.001);
+
+      this.debugFolder
+        .add(this.pointLight.position, "y")
+        .name("pointLightY")
+        .min(-10)
+        .max(10)
+        .step(0.001);
+
+      this.debugFolder
+        .add(this.pointLight.position, "z")
+        .name("pointLightZ")
+        .min(-10)
+        .max(10)
+        .step(0.001);
     }
   }
 

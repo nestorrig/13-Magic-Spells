@@ -1351,11 +1351,11 @@ void main(){
     //color += x;
     //color.x += sin(u_time * 0.05);
     color = mix(color,
-                vec3(0.1,0.9,0.64706),
+                vec3(0.9,0.9,0.9),
                 clamp(length(r- x),0.0,0.5));
 
     color = mix(color,
-                vec3(0.166667,0.5,0.7),
+                vec3(0.16,0.16,0.16),
                 clamp(length(q - x),0.0,1.0));
     gl_FragColor = vec4(color, 1.);
 }
