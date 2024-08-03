@@ -46,10 +46,15 @@ export default class Resources extends EventEmitter {
 
     this.loaded++;
 
+    this.percentageLoaded = ((this.loaded / this.toLoad) * 100).toFixed(0);
+
+    observerEmitter.trigger(EVENTS.PERCENTAGE_LOADED, [this.percentageLoaded]);
+
     if (this.loaded === this.toLoad) {
       console.log("ready");
       this.trigger("ready");
       observerEmitter.trigger(EVENTS.LOADED);
     }
   }
+
 }

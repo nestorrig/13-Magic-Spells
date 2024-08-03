@@ -19,3 +19,22 @@ body {
   left: 0;
   outline: none;
 }
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  99% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.fadeout {
+  animation: fadeout 1s linear forwards;
+}
