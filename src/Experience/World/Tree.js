@@ -15,7 +15,7 @@ export default class Tree {
       this.debugFolder = this.debug.ui.addFolder("fox");
 
       this.debugFolder.animateScale = () => {
-        this.animateScale(0.2);
+        this.animateScale(0.4);
       };
       this.debugFolder.restartAnimation = () => {
         this.restartAnimation();
@@ -32,13 +32,34 @@ export default class Tree {
 
   setModel() {
     this.model = this.resource.scene;
-    // this.model.scale.set(0., 0., 0.);
+    this.model.scale.set(2, 2, 2);
     this.model.position.set(2, -0.1, 1);
     this.scene.add(this.model);
+
+    this.originalScales = {};
 
     this.model.traverse((child) => {
       if (child instanceof THREE.Mesh) {
         child.castShadow = true;
+      }
+      if (child instanceof THREE.Group) {
+        console.log(child.name);
+
+        // Guarda la escala original de los hijos
+        this.originalScales[child.name] = child.scale.clone();
+
+        switch (child.name) {
+          case "pine_sapling_small_a":
+            break;
+          case "pine_sapling_small_b":
+            child.position.set(0.7, 0, 0);
+            break;
+          case "pine_sapling_small_c":
+            child.position.set(0.375, 0, -0.5);
+            break;
+          default:
+            break;
+        }
       }
     });
 
@@ -48,22 +69,36 @@ export default class Tree {
   }
 
   animateScale(newScale) {
-    gsap.to(this.model.scale, {
-      duration: 1,
-      x: newScale,
-      y: newScale,
-      z: newScale,
-      ease: "elastic.out(1, 0.3)",
-    });
-    gsap.to(this.model.position, {
-      duration: 1,
-      y: 0.05,
+    this.model.traverse((child) => {
+      if (child instanceof THREE.Group) {
+        switch (child.name) {
+          case "pine_sapling_small_a":
+          case "pine_sapling_small_b":
+          case "pine_sapling_small_c":
+            gsap.to(child.scale, {
+              duration: 1,
+              x: newScale,
+              y: newScale,
+              z: newScale,
+              ease: "elastic.out(1, 0.3)",
+            });
+            break;
+          default:
+            break;
+        }
+      }
     });
   }
 
   restartAnimation() {
-    this.model.scale.set(1, 1, 1);
-    this.model.position.set(2, -0.1, 1);
+    this.model.traverse((child) => {
+      if (child instanceof THREE.Group) {
+        if (this.originalScales[child.name]) {
+          const originalScale = this.originalScales[child.name];
+          child.scale.set(originalScale.x, originalScale.y, originalScale.z);
+        }
+      }
+    });
   }
 
   update() {

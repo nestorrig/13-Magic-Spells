@@ -113,11 +113,6 @@ export default [
   // * Models
 
   {
-    name: "foxModel",
-    type: "gltfModel",
-    path: "models/Fox/glTF/Fox.gltf",
-  },
-  {
     name: "picnicTableModel",
     type: "gltfModel",
     path: "models/wooden_picnic_table_1k/wooden_picnic_table_1k.gltf",
@@ -130,6 +125,6 @@ export default [
   {
     name: "treeModel",
     type: "gltfModel",
-    path: "models/island_tree_02_1k/island_tree_02_1k.gltf",
+    path: "models/pine_sapling_small_1k/pine_sapling_small_1k.gltf",
   },
 ];

@@ -28,8 +28,8 @@ const cameraPlaces = {
     // duration: 2,
   },
   topTree: {
-    position: new THREE.Vector3(0.9113, 4.7316, -5.098),
-    target: new THREE.Vector3(2.019, 1.35, 1.887),
+    position: new THREE.Vector3(2.293, 0.897, -3.722),
+    target: new THREE.Vector3(2.739, 0.6499, 0.943),
     duration: 2,
   },
   topTable: {
@@ -98,7 +98,7 @@ export default class Camera {
   setControls() {
     this.controls = new OrbitControls(this.instance, this.canvas);
     this.controls.target.set(0.067, 2.688, -6.948);
-    this.controls.enableDamping = true;
+    // this.controls.enableDamping = true;
 
     if (this.debug.active) {
       this.debugFolder
