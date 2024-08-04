@@ -10,13 +10,16 @@ export const Home = () => {
     const tl = gsap.timeline();
 
     tl.to(".Try-button", {
-      duration: 1.5,
+      duration: 0.5,
       scale: 0,
+      onComplete: () => {
+        observerEmitter.trigger(EVENTS.INIT_TEXTURE_UI);
+      },
     })
       .to(
         ".Text-1",
         {
-          duration: 1,
+          duration: 0.5,
           xPercent: -100,
         },
         "-=75%"
@@ -24,7 +27,7 @@ export const Home = () => {
       .to(
         ".Text-2",
         {
-          duration: 1,
+          duration: 0.5,
           yPercent: -100,
         },
         "-=75%"
@@ -82,7 +85,7 @@ export const Home = () => {
       </div>
 
       <button
-        className="Try-button opacity-0 fixed bottom-8 right-8 flex border-[2px] border-text-100 px-4 py-1.5 justify-center items-center gap-2 rounded-3xl hover:border-text-200"
+        className="Try-button z-10 opacity-0 fixed bottom-8 right-8 flex border-[2px] border-text-100 px-4 py-1.5 justify-center items-center gap-2 rounded-3xl hover:border-text-200"
         onClick={initAnimation}
       >
         <div className="font-rokkitt text-text-100 text-lg h-7 overflow-hidden ">

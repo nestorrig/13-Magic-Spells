@@ -1,6 +1,6 @@
 // import { EVENTS, observerEmitter } from "@/Events/Events";
 
-import { Home, Menu, TextureButtons } from "./UI/";
+import { Home, Menu, SwitchModeButton, TextureButtons } from "./UI/";
 
 export const UIcontent = () => {
   return (
@@ -8,6 +8,7 @@ export const UIcontent = () => {
       <Menu />
       <Home />
       <TextureButtons />
+      <SwitchModeButton />
     </>
   );
 };

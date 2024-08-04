@@ -29,14 +29,14 @@ export const Loader = () => {
     observerEmitter.on(EVENTS.PERCENTAGE_LOADED, handlePercentageLoaded);
 
     return () => {
-      // observerEmitter.off(EVENTS.LOADED, handleLoaded);
+      observerEmitter.off(EVENTS.LOADED, handleLoaded);
       observerEmitter.off(EVENTS.PERCENTAGE_LOADED, handlePercentageLoaded);
     };
   }, []);
 
   return (
     <div
-      className={`absolute w-screen h-svh text-2xl font-bold bg-bg-200 top-0 transition-all z-50 font-bona-nova ${
+      className={`absolute w-screen h-svh text-2xl font-bold bg-bg-100 top-0 transition-all z-50 font-bona-nova ${
         removeLoader ? "fadeout" : ""
       }`}
     >

@@ -58,10 +58,22 @@ body {
   animation: fadein 1s linear forwards;
 }
 
-.Try-button:hover .icon {
+.Try-button:hover:not(:disabled) .icon {
   transform: translateX(6px);
 }
+.Mode-button:hover:not(:disabled) .icon {
+  transform: translateX(6px) rotate(-90deg);
+}
 
-.Try-button:hover .mask {
+.Mode-button:hover:not(:disabled) .icon-return {
+  transform: translateX(6px) rotate(360deg);
+}
+
+.Mode-button:disabled {
+  opacity: 0.5 !important;
+}
+
+.Try-button:hover:not(:disabled) .mask,
+.Mode-button:hover:not(:disabled) .mask {
   transform: translateY(-28px);
 }

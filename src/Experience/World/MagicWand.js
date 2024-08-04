@@ -188,7 +188,7 @@ export default class MagicWand {
     gsap.to(this.magicWand.position, {
       delay: 0.5,
       y: 2.6,
-      duration: 2,
+      duration: 1.5,
     });
   }
 
