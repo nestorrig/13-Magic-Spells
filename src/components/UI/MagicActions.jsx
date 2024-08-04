@@ -1,7 +1,6 @@
 import {
   GiFloatingPlatforms,
   GiMagicPortal,
-  GiRegeneration,
   GiResonance,
 } from "react-icons/gi";
 import { LuShrink } from "react-icons/lu";
@@ -19,7 +18,7 @@ const buttonsConfig = [
         className="ml-auto w-12 h-12 text-3xl bg-bg-300 p-2 rounded-full"
       />
     ),
-    events: [EVENTS.CAMERA_MOVES.MOVE_TO_TREES, EVENTS.OTHER_EVENT_1],
+    events: [EVENTS.CAMERA_MOVES.MOVE_TO_TREES, EVENTS.ANIMATE_SPELL],
   },
   {
     id: 2,
@@ -30,7 +29,7 @@ const buttonsConfig = [
         className="ml-auto w-12 h-12 text-3xl bg-bg-300 p-2 rounded-full"
       />
     ),
-    events: [EVENTS.CAMERA_MOVES.MOVE_TO_TABLE, EVENTS.OTHER_EVENT_2],
+    events: [EVENTS.CAMERA_MOVES.MOVE_TO_TABLE, EVENTS.ANIMATE_SPELL],
   },
   {
     id: 3,
@@ -41,30 +40,30 @@ const buttonsConfig = [
         className="ml-auto w-12 h-12 text-3xl bg-bg-300 p-2 rounded-full"
       />
     ),
-    events: [EVENTS.CAMERA_MOVES.MOVE_TO_ROCKS, EVENTS.OTHER_EVENT_3],
+    events: [EVENTS.CAMERA_MOVES.MOVE_TO_ROCKS, EVENTS.ANIMATE_SPELL],
   },
 ];
 
 export const MagicActions = () => {
   const [disabledButtons, setDisabledButtons] = useState({});
   const [isDisabled, setIsDisabled] = useState(false);
+  const [allDisabled, setAllDisabled] = useState(false);
 
   const handleButtonClick = (id, events) => {
     events.forEach((event) => observerEmitter.trigger(event));
-
+    setAllDisabled(true);
+    setIsDisabled(true);
+    observerEmitter.trigger(EVENTS.ENABLE_MODE_BUTTON);
     setDisabledButtons((prev) => ({ ...prev, [id]: true }));
-    // setTimeout(() => {
-    //   setDisabledButtons((prev) => ({ ...prev, [id]: false }));
-    // }, 3000);
-  };
-
-  const enableAllButtons = () => {
-    setDisabledButtons({});
   };
 
   const handleReset = () => {
+    setDisabledButtons({ 1: true, 2: true, 3: true });
+
+    observerEmitter.trigger(EVENTS.RESTART_ANIMATIONS);
+    observerEmitter.trigger(EVENTS.ENABLE_MODE_BUTTON);
     setIsDisabled(true);
-    const duration = 3;
+    const duration = 9;
 
     const tl = gsap.timeline({ defaults: { duration: duration } });
 
@@ -84,19 +83,15 @@ export const MagicActions = () => {
     });
 
     setTimeout(() => {
-      setIsDisabled(false);
-      enableAllButtons();
+      observerEmitter.trigger(EVENTS.DISABLE_ALL_BUTTONS);
+      setDisabledButtons({});
     }, duration * 1000);
   };
 
   useEffect(() => {
     const handleInitMagicMode = (state = true) => {
       const tl = gsap.timeline();
-      console.log(state);
 
-      // tl.to(".Magic-buttons-container", {
-      //   x: state ? 500 : 0,
-      // })
       tl.to(".Magic-buttons", {
         opacity: state ? 0 : 1,
         x: state ? 500 : 0,
@@ -110,9 +105,17 @@ export const MagicActions = () => {
         "<"
       );
     };
+
+    const handleDisableAllButtons = () => {
+      setAllDisabled(false);
+      setIsDisabled(false);
+    };
+
     observerEmitter.on(EVENTS.SWITCH_MODE, handleInitMagicMode);
+    observerEmitter.on(EVENTS.DISABLE_ALL_BUTTONS, handleDisableAllButtons);
     return () => {
       observerEmitter.off(EVENTS.SWITCH_MODE, handleInitMagicMode);
+      observerEmitter.off(EVENTS.DISABLE_ALL_BUTTONS, handleDisableAllButtons);
     };
   }, []);
 
@@ -133,7 +136,11 @@ export const MagicActions = () => {
                 {text}
               </span>
               <button
-                className="size-16"
+                className={`size-16 ${
+                  allDisabled
+                    ? "cursor-not-allowed pointer-events-none opacity-50"
+                    : ""
+                }`}
                 onClick={() => handleButtonClick(id, events)}
                 disabled={disabledButtons[id]}
               >

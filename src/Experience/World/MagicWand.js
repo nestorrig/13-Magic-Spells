@@ -71,8 +71,26 @@ export default class MagicWand {
 
   changeTextureEvent() {
     //INIT_HOME
-    observerEmitter.on(EVENTS.INIT_HOME, () => {      
+    observerEmitter.on(EVENTS.INIT_HOME, () => {
       this.animateInitHome();
+    });
+    // ANIMATE_SPELL
+    observerEmitter.on(EVENTS.ANIMATE_SPELL, () => {
+      this.animateSpell();
+    });
+    // RESTART_ANIMATIONS
+    observerEmitter.on(EVENTS.RESTART_ANIMATIONS, () => {
+      console.log("RESTART_ANIMATIONS");
+
+      observerEmitter.trigger(EVENTS.CAMERA_MOVES.MOVE_TO_HOME);
+      setTimeout(() => {
+        this.experience.world.table.restartAnimation();
+        this.experience.world.tree.restartAnimation();
+        this.experience.world.rocks.resetAnimation();
+      }, 2000);
+      setTimeout(() => {
+        this.animateRotate();
+      }, 2000);
     });
 
     // CHANGE_TEXTURE
@@ -181,6 +199,43 @@ export default class MagicWand {
       duration: 1,
       delay: 0.7,
       ease: "elastic.out(1, 0.5)",
+    });
+  }
+
+  animateRotate() {
+    // Obtén la rotación actual
+    const currentRotation = this.magicWand.rotation.clone();
+
+    // Calcula el incremento de rotación que deseas agregar
+    const increment = {
+      x: Math.PI * 2,
+      y: Math.PI * 2,
+      z: Math.PI * 2,
+    };
+
+    // Usa gsap.to para animar la rotación, sumando el incremento a la rotación actual
+    gsap.to(this.magicWand.rotation, {
+      x: currentRotation.x + increment.x,
+      y: currentRotation.y + increment.y,
+      z: currentRotation.z + increment.z,
+      duration: 4.5,
+    });
+
+    const tl = gsap.timeline();
+    tl.to(this.experience.world.environment.pointLight, {
+      intensity: 3,
+      onComplete: () => this.experience.world.environment.animatePointLightToWarm(),
+    })
+    .to(this.experience.world.environment.pointLight, {
+      delay: 1.5,
+      intensity: 1,
+      onComplete: () => this.experience.world.environment.animatePointLightToCool(),
+    })
+    .to({}, {
+      duration: 1.5,
+      onComplete: () => {
+        observerEmitter.trigger(EVENTS.CAMERA_MOVES.MOVE_TO_GENERAL);
+      },
     });
   }
 

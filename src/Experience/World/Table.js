@@ -4,6 +4,7 @@ import gsap from "gsap";
 
 import vertexShader from "@/Shaders/Portal/vertex.glsl";
 import fragmentShader from "@/Shaders/Portal/fragment.glsl";
+import { observerEmitter, EVENTS } from "@/Events/Events.js";
 
 export default class Table {
   constructor() {
@@ -107,6 +108,10 @@ export default class Table {
               x: 0,
               y: 0,
               ease: "power1.inOut",
+              onComplete: () => {
+                observerEmitter.trigger(EVENTS.CAMERA_MOVES.MOVE_TO_GENERAL);
+                observerEmitter.trigger(EVENTS.DISABLE_ALL_BUTTONS);
+              },
             });
           },
         });

@@ -223,12 +223,14 @@ export default class Camera {
         cameraPlaces.initial.duration
       );
     });
-    observerEmitter.on(EVENTS.CAMERA_MOVES.MOVE_TO_GENERAL, () => {
-      this.animateCamera(
-        cameraPlaces.top.position,
-        cameraPlaces.top.target,
-        cameraPlaces.top.duration
-      );
+    observerEmitter.on(EVENTS.CAMERA_MOVES.MOVE_TO_GENERAL, (delay) => {
+      setTimeout(() => {
+        this.animateCamera(
+          cameraPlaces.top.position,
+          cameraPlaces.top.target,
+          cameraPlaces.top.duration
+        );
+      }, delay * 1000);
     });
     observerEmitter.on(EVENTS.CAMERA_MOVES.MOVE_TO_TABLE, () => {
       this.animateCamera(
@@ -236,6 +238,9 @@ export default class Camera {
         cameraPlaces.topTable.target,
         cameraPlaces.topTable.duration
       );
+      setTimeout(() => {
+        this.experience.world.table.animateTeleport();
+      }, cameraPlaces.topTable.duration * 1000);
     });
     observerEmitter.on(EVENTS.CAMERA_MOVES.MOVE_TO_TREES, () => {
       this.animateCamera(
@@ -243,6 +248,9 @@ export default class Camera {
         cameraPlaces.topTree.target,
         cameraPlaces.topTree.duration
       );
+      setTimeout(() => {
+        this.experience.world.tree.animateScale();
+      }, cameraPlaces.topTree.duration * 1000);
     });
     observerEmitter.on(EVENTS.CAMERA_MOVES.MOVE_TO_ROCKS, () => {
       this.animateCamera(
@@ -250,6 +258,9 @@ export default class Camera {
         cameraPlaces.topRocks.target,
         cameraPlaces.topRocks.duration
       );
+      setTimeout(() => {
+        this.experience.world.rocks.animateLevitate();
+      }, cameraPlaces.topRocks.duration * 1000);
     });
   }
 

@@ -15,8 +15,18 @@ export const SwitchModeButton = () => {
         opacity: 1,
       });
     };
+    const handleEnableButton = () => {
+      setIsDisabled(false);
+    };
+    const handleDisableButton = () => {
+      setIsDisabled(true);
+    };
+    observerEmitter.on(EVENTS.DISABLE_ALL_BUTTONS, handleEnableButton);
+    observerEmitter.on(EVENTS.ENABLE_MODE_BUTTON, handleDisableButton);
     observerEmitter.on(EVENTS.INIT_TEXTURE_UI, handleInitTextures);
     return () => {
+      observerEmitter.on(EVENTS.DISABLE_ALL_BUTTONS, handleEnableButton);
+      observerEmitter.on(EVENTS.ENABLE_MODE_BUTTON, handleDisableButton);
       observerEmitter.off(EVENTS.INIT_TEXTURE_UI, handleInitTextures);
     };
   }, []);

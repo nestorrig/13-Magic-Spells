@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import Experience from '../Experience.js'
-import { Sky } from "three/examples/jsm/Addons.js";
+import gsap from "gsap";
 
 export default class Environment {
   constructor() {
@@ -18,7 +18,6 @@ export default class Environment {
     this.setSunLight();
     this.setAmbientLight();
     this.setPointLight();
-    // this.setSky();
   }
 
   setSunLight() {
@@ -131,75 +130,37 @@ export default class Environment {
     }
   }
 
-  setSky() {
-    this.sky = new Sky();
-    this.sky.scale.setScalar(450000);
-    this.scene.add(this.sky);
-    console.log("sky");
+  animateLightColor(light, startColor, endColor, duration) {
+    const colorObject = { r: startColor.r, g: startColor.g, b: startColor.b };
 
-    this.sun = new THREE.Vector3();
-
-    this.effectController = {
-      turbidity: 5.2,
-      rayleigh: 0.184,
-      mieCoefficient: 0.001,
-      mieDirectionalG: 0.8,
-      elevation: 5,
-      azimuth: 9.9,
-      // turbidity: 5.2,
-      // rayleigh: 4,
-      // mieCoefficient: 0.005,
-      // mieDirectionalG: 0.8,
-      // elevation: 0.7,
-      // azimuth: 9.9,
-      //   exposure: this.renderer.toneMappingExposure,
-    };
-
-    const guiChanged = () => {
-      const uniforms = this.sky.material.uniforms;
-      uniforms["turbidity"].value = this.effectController.turbidity;
-      uniforms["rayleigh"].value = this.effectController.rayleigh;
-      uniforms["mieCoefficient"].value = this.effectController.mieCoefficient;
-      uniforms["mieDirectionalG"].value = this.effectController.mieDirectionalG;
-
-      const phi = THREE.MathUtils.degToRad(
-        90 - this.effectController.elevation
-      );
-      const theta = THREE.MathUtils.degToRad(this.effectController.azimuth);
-
-      this.sun.setFromSphericalCoords(1, phi, theta);
-
-      uniforms["sunPosition"].value.copy(this.sun);
-
-      //   this.renderer.toneMappingExposure = this.effectController.exposure;
-      //   this.renderer.render(this.scene, this.camera);
-    };
-    guiChanged();
-    if (this.debug.active) {
-      this.debugFolder
-        .add(this.effectController, "turbidity", 0.0, 20.0, 0.1)
-        .onChange(guiChanged);
-      this.debugFolder
-        .add(this.effectController, "rayleigh", 0.0, 8, 0.001)
-        .onChange(guiChanged);
-      this.debugFolder
-        .add(this.effectController, "mieCoefficient", 0.0, 0.1, 0.001)
-        .onChange(guiChanged);
-      this.debugFolder
-        .add(this.effectController, "mieDirectionalG", 0.0, 1, 0.001)
-        .onChange(guiChanged);
-      this.debugFolder
-        .add(this.effectController, "elevation", 0, 90, 0.1)
-        .onChange(guiChanged);
-      this.debugFolder
-        .add(this.effectController, "azimuth", -180, 180, 0.1)
-        .onChange(guiChanged);
-      //   this.debugFolder
-      //     .add(this.effectController, "exposure", 0, 1, 0.0001)
-      //     .onChange(guiChanged);
-
-      guiChanged();
-    }
+    gsap.to(colorObject, {
+      r: endColor.r,
+      g: endColor.g,
+      b: endColor.b,
+      duration,
+      onUpdate: () => {
+        light.color.setRGB(colorObject.r, colorObject.g, colorObject.b);
+      },
+    });
   }
+
+  animatePointLightToWarm() {
+    this.animateLightColor(
+      this.pointLight,
+      new THREE.Color(0xffffff),
+      new THREE.Color(0xffaf00),
+      1.5
+    );
+  }
+
+  animatePointLightToCool() {
+    this.animateLightColor(
+      this.pointLight,
+      new THREE.Color(0xffaf00),
+      new THREE.Color(0x737373),
+      1.5
+    );
+  }
+
   update() {}
 }

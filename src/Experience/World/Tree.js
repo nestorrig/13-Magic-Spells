@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import Experience from "../Experience.js";
 import gsap from "gsap";
+import { EVENTS, observerEmitter } from "@/Events/Events.js";
 
 export default class Tree {
   constructor() {
@@ -43,8 +44,6 @@ export default class Tree {
         child.castShadow = true;
       }
       if (child instanceof THREE.Group) {
-        console.log(child.name);
-
         // Guarda la escala original de los hijos
         this.originalScales[child.name] = child.scale.clone();
 
@@ -68,7 +67,7 @@ export default class Tree {
     }
   }
 
-  animateScale(newScale) {
+  animateScale(newScale = 0.4) {
     this.model.traverse((child) => {
       if (child instanceof THREE.Group) {
         switch (child.name) {
@@ -81,6 +80,10 @@ export default class Tree {
               y: newScale,
               z: newScale,
               ease: "elastic.out(1, 0.3)",
+              onComplete: () => {
+                observerEmitter.trigger(EVENTS.CAMERA_MOVES.MOVE_TO_GENERAL);
+                observerEmitter.trigger(EVENTS.DISABLE_ALL_BUTTONS);
+              },
             });
             break;
           default:

@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import Experience from "../Experience.js";
 import gsap from "gsap";
+import { EVENTS, observerEmitter } from "@/Events/Events.js";
 
 export default class Rocks {
   constructor() {
@@ -91,6 +92,10 @@ export default class Rocks {
 
       this.animations.push(positionTween, rotationTween);
     });
+    setTimeout(() => {
+      observerEmitter.trigger(EVENTS.CAMERA_MOVES.MOVE_TO_GENERAL);
+      observerEmitter.trigger(EVENTS.DISABLE_ALL_BUTTONS);
+    }, 5000);
   }
 
   resetAnimation() {
