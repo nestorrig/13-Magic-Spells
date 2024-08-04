@@ -63,7 +63,7 @@ export const MagicActions = () => {
     observerEmitter.trigger(EVENTS.RESTART_ANIMATIONS);
     observerEmitter.trigger(EVENTS.ENABLE_MODE_BUTTON);
     setIsDisabled(true);
-    const duration = 9;
+    const duration = 7;
 
     const tl = gsap.timeline({ defaults: { duration: duration } });
 

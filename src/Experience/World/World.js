@@ -1,4 +1,5 @@
 import Experience from '../Experience.js'
+import AudioController from "./Audio.js";
 import Environment from './Environment.js'
 import Floor from './Floor.js'
 import MagicWand from "./MagicWand.js";
@@ -23,6 +24,7 @@ export default class World {
       this.rocks = new Rocks();
       this.table = new Table();
       this.particles = new Particles();
+      this.audio = new AudioController();
     });
   }
 

@@ -92,6 +92,7 @@ export default class Table {
       ease: "power1.inOut",
       onComplete: () => {
         // Mover la mesa hacia el portal
+        observerEmitter.trigger(EVENTS.AUDIO.EFFECTS.PLAY_EFFECT, ["table"]);
         gsap.to(this.model.position, {
           duration: 1,
           z: 4,

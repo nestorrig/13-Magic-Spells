@@ -60,6 +60,7 @@ export default class Rocks {
   }
 
   animateLevitate() {
+    observerEmitter.trigger(EVENTS.AUDIO.EFFECTS.PLAY_EFFECT, ["rocks"]);
     this.rocks.forEach((rock) => {
       const durationRotation = Math.random() * (6 - 2.5) + 2.5;
       const durationYoyo = Math.random() * (2.5 - 1) + 1;

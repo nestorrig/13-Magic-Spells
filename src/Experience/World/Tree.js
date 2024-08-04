@@ -68,6 +68,7 @@ export default class Tree {
   }
 
   animateScale(newScale = 0.4) {
+    observerEmitter.trigger(EVENTS.AUDIO.EFFECTS.PLAY_EFFECT, ["trees"]);
     this.model.traverse((child) => {
       if (child instanceof THREE.Group) {
         switch (child.name) {

@@ -20,6 +20,23 @@ export const EVENTS = {
     MOVE_TO_WAND: "moveToWand",
     RESET_ANIMATIONS_CAMERA: "resetAnimationsCamera",
   },
+  AUDIO: {
+    AMBIENT: {
+      PLAY: "playAmbient",
+      STOP: "stopAmbient",
+    },
+    EFFECTS: {
+      PLAY: "playEffects",
+      STOP: "stopEffects",
+      PLAY_EFFECT: "playEffect",
+      // TREE: "tree",
+      // ROCKS: "rocks",
+      // TABLE: "table",
+      // TEXTURE: "texture",
+      // CAMERA_MOVE: "cameraMove",
+      // RESET: "reset",
+    },
+  },
 };
 
 export const observerEmitter = new EventEmitter();

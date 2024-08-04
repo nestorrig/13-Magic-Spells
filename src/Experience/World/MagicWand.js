@@ -205,12 +205,13 @@ export default class MagicWand {
   animateRotate() {
     // Obtén la rotación actual
     const currentRotation = this.magicWand.rotation.clone();
+    observerEmitter.trigger(EVENTS.AUDIO.EFFECTS.PLAY_EFFECT, ["reset"]);
 
     // Calcula el incremento de rotación que deseas agregar
     const increment = {
-      x: Math.PI * 2,
-      y: Math.PI * 2,
-      z: Math.PI * 2,
+      x: Math.PI * 2 * 2,
+      y: Math.PI * 2 * 2,
+      z: Math.PI * 2 * 2,
     };
 
     // Usa gsap.to para animar la rotación, sumando el incremento a la rotación actual
@@ -218,25 +219,30 @@ export default class MagicWand {
       x: currentRotation.x + increment.x,
       y: currentRotation.y + increment.y,
       z: currentRotation.z + increment.z,
-      duration: 4.5,
+      duration: 3,
     });
 
     const tl = gsap.timeline();
     tl.to(this.experience.world.environment.pointLight, {
       intensity: 3,
-      onComplete: () => this.experience.world.environment.animatePointLightToWarm(),
+      onComplete: () =>
+        this.experience.world.environment.animatePointLightToWarm(),
     })
-    .to(this.experience.world.environment.pointLight, {
-      delay: 1.5,
-      intensity: 1,
-      onComplete: () => this.experience.world.environment.animatePointLightToCool(),
-    })
-    .to({}, {
-      duration: 1.5,
-      onComplete: () => {
-        observerEmitter.trigger(EVENTS.CAMERA_MOVES.MOVE_TO_GENERAL);
-      },
-    });
+      .to(this.experience.world.environment.pointLight, {
+        delay: 1.5,
+        intensity: 1,
+        onComplete: () =>
+          this.experience.world.environment.animatePointLightToCool(),
+      })
+      .to(
+        {},
+        {
+          duration: 0.5,
+          onComplete: () => {
+            observerEmitter.trigger(EVENTS.CAMERA_MOVES.MOVE_TO_GENERAL);
+          },
+        }
+      );
   }
 
   animateInitHome() {

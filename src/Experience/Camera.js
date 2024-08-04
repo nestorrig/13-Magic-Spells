@@ -188,7 +188,7 @@ export default class Camera {
   animateCamera(position, target, duration) {
     const initialPosition = position.clone();
     const initialTarget = target.clone();
-
+    observerEmitter.trigger(EVENTS.AUDIO.EFFECTS.PLAY_EFFECT, ["camera"]);
     gsap.to(this.instance.position, {
       x: initialPosition.x,
       y: initialPosition.y,
