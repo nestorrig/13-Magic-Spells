@@ -10,11 +10,11 @@ const images = [
 
 export const TextureButtons = () => {
   return (
-    <div className="fixed ring-4 bottom-4">
+    <div className="fixed bottom-8 left-1/2 translate-y-20 -translate-x-1/2 flex justify-center items-center gap-3">
       {images.map((image, index) => (
         <button
           key={index}
-          className="size-16 rounded-full"
+          className="size-12 rounded-full"
           onClick={() => {
             observerEmitter.trigger(EVENTS.CHANGE_TEXTURE, [image.alt]);
           }}

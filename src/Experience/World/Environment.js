@@ -85,16 +85,16 @@ export default class Environment {
   }
 
   setPointLight() {
-    this.pointLight = new THREE.PointLight("#FFAF00", 1, 7, 2);
+    this.pointLight = new THREE.PointLight("#737373", 1, 7, 2);
+    // this.pointLight = new THREE.PointLight("#FFAF00", 1, 7, 2);
     this.pointLight.castShadow = true;
     this.pointLight.shadow.camera.far = 7;
     this.pointLight.shadow.mapSize.set(1024, 1024);
     this.pointLight.shadow.normalBias = 0.05;
     this.pointLight.position.set(-0.07, 3, -6.57);
-    // this.pointLight.position.set(-0.07, 3, -6.57);
 
     this.pointLightHelper = new THREE.PointLightHelper(this.pointLight, 0.1);
-    this.scene.add(this.pointLightHelper);
+    // this.scene.add(this.pointLightHelper);
 
     this.scene.add(this.pointLight);
 

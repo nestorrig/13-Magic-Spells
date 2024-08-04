@@ -11,7 +11,7 @@ const cameraPlaces = {
   },
   initial: {
     position: new THREE.Vector3(1.306, 3.359, -6.016),
-    target: new THREE.Vector3(0.067, 2.688, -6.948),
+    target: new THREE.Vector3(0, 2.66, -7),
     duration: 2,
   },
   reset: {
@@ -97,7 +97,7 @@ export default class Camera {
 
   setControls() {
     this.controls = new OrbitControls(this.instance, this.canvas);
-    this.controls.target.set(0.067, 2.688, -6.948);
+    this.controls.target.set(0, 2.66, -7);
     // this.controls.enableDamping = true;
 
     if (this.debug.active) {

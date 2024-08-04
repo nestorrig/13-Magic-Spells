@@ -9,6 +9,7 @@ export const Loader = () => {
 
   const handleRemoveLoader = () => {
     setRemoveLoader(true);
+    observerEmitter.trigger(EVENTS.INIT_HOME);
   };
 
   useEffect(() => {

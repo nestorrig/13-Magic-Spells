@@ -41,7 +41,7 @@ export default class MagicWand {
     this.magicWand = new THREE.Mesh(this.geometry, this.material);
     this.magicWand.castShadow = true;
 
-    this.magicWand.position.set(0, 2.6, -7);
+    this.magicWand.position.set(0, 4, -7);
     this.scene.add(this.magicWand);
 
     // Debug
@@ -70,6 +70,12 @@ export default class MagicWand {
   }
 
   changeTextureEvent() {
+    //INIT_HOME
+    observerEmitter.on(EVENTS.INIT_HOME, () => {      
+      this.animateInitHome();
+    });
+
+    // CHANGE_TEXTURE
     observerEmitter.on(EVENTS.CHANGE_TEXTURE, (texture) => {
       this.animationScale();
       switch (texture) {
@@ -159,12 +165,13 @@ export default class MagicWand {
   }
   animateSpell() {
     gsap.fromTo(
-      this.magicWand.rotation, {
+      this.magicWand.rotation,
+      {
         x: 0,
       },
       {
         x: 1.6,
-        
+
         duration: 1,
         ease: "elastic.out(1, 0.5)",
       }
@@ -174,6 +181,14 @@ export default class MagicWand {
       duration: 1,
       delay: 0.7,
       ease: "elastic.out(1, 0.5)",
+    });
+  }
+
+  animateInitHome() {
+    gsap.to(this.magicWand.position, {
+      delay: 0.5,
+      y: 2.6,
+      duration: 2,
     });
   }
 

@@ -38,3 +38,30 @@ body {
 .fadeout {
   animation: fadeout 1s linear forwards;
 }
+@keyframes fadein {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  99% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.fadein {
+  animation: fadein 1s linear forwards;
+}
+
+.Try-button:hover .icon {
+  transform: translateX(6px);
+}
+
+.Try-button:hover .mask {
+  transform: translateY(-28px);
+}

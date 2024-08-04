@@ -1,5 +1,5 @@
 import { Canvas } from "./Canvas";
 import { Loader } from "./Loader";
-import { TextureButtons } from "./TextureButtons";
+import { UIcontent } from "./UIcontent";
 
-export { Canvas, Loader, TextureButtons };
+export { Canvas, Loader, UIcontent };
