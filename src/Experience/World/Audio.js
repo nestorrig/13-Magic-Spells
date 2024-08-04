@@ -8,7 +8,6 @@ export default class AudioController {
       loop: true,
       volume: 0.5,
       onload: () => {
-        // observerEmitter.trigger(EVENTS.LOADED);
         console.log("Audio loaded");
       },
     });
@@ -20,8 +19,6 @@ export default class AudioController {
       trees: new Howl({ src: ["/audio/trees.mp3"], volume: 1.0 }),
       texture: new Howl({ src: ["/audio/texture.mp3"], volume: 1.0 }),
       reset: new Howl({ src: ["/audio/reset.mp3"], volume: 1.0 }),
-
-      // Agrega más efectos de sonido según sea necesario
     };
 
     this.isMuted = false;
@@ -34,7 +31,7 @@ export default class AudioController {
   }
 
   stopAmbientMusic() {
-    this.ambientMusic.stop();
+    this.ambientMusic.pause();
   }
 
   toggleMute() {
@@ -53,39 +50,19 @@ export default class AudioController {
 
   setEventListeners() {
     // Agrega los eventos necesarios para controlar el audio
-    observerEmitter.on(EVENTS.AUDIO.AMBIENT.PLAY, () => {
-      this.startAmbientMusic();
+    observerEmitter.on(EVENTS.AUDIO.AMBIENT, (state = true) => {
+      if (state) {
+        this.startAmbientMusic();
+      } else {
+        this.stopAmbientMusic();
+      }
     });
-    observerEmitter.on(EVENTS.AUDIO.AMBIENT.STOP, () => {
-      this.stopAmbientMusic();
+    observerEmitter.on(EVENTS.AUDIO.EFFECTS, () => {
+      this.isEffectsMuted = !this.isEffectsMuted;
     });
-    observerEmitter.on(EVENTS.AUDIO.EFFECTS.PLAY, () => {
-      this.isEffectsMuted = false;
-    });
-    observerEmitter.on(EVENTS.AUDIO.EFFECTS.STOP, () => {
-      this.isEffectsMuted = true;
-    });
-    observerEmitter.on(EVENTS.AUDIO.EFFECTS.PLAY_EFFECT, (effect) => {
-      console.log(effect);
-
+    observerEmitter.on(EVENTS.AUDIO.PLAY_EFFECT, (effect) => {
       this.playSoundEffect(effect);
     });
   }
 }
 
-// // Uso de la clase
-// const audioController = new AudioController();
-// audioController.startAmbientMusic();
-
-// // Eventos para el control de audio
-// document.getElementById('muteButton').addEventListener('click', () => {
-//   audioController.toggleMute();
-// });
-
-// document.getElementById('playEffect1Button').addEventListener('click', () => {
-//   audioController.playSoundEffect('effect1');
-// });
-
-// document.getElementById('playEffect2Button').addEventListener('click', () => {
-//   audioController.playSoundEffect('effect2');
-// });

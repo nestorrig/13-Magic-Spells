@@ -10,7 +10,7 @@ export const Loader = () => {
   const handleRemoveLoader = () => {
     setRemoveLoader(true);
     observerEmitter.trigger(EVENTS.INIT_HOME);
-    observerEmitter.trigger(EVENTS.AUDIO.AMBIENT.PLAY);
+    observerEmitter.trigger(EVENTS.AUDIO.AMBIENT);
   };
 
   useEffect(() => {

@@ -21,21 +21,9 @@ export const EVENTS = {
     RESET_ANIMATIONS_CAMERA: "resetAnimationsCamera",
   },
   AUDIO: {
-    AMBIENT: {
-      PLAY: "playAmbient",
-      STOP: "stopAmbient",
-    },
-    EFFECTS: {
-      PLAY: "playEffects",
-      STOP: "stopEffects",
-      PLAY_EFFECT: "playEffect",
-      // TREE: "tree",
-      // ROCKS: "rocks",
-      // TABLE: "table",
-      // TEXTURE: "texture",
-      // CAMERA_MOVE: "cameraMove",
-      // RESET: "reset",
-    },
+    AMBIENT: "ambient",
+    PLAY_EFFECT: "playEffect",
+    EFFECTS: "effects",
   },
 };
 

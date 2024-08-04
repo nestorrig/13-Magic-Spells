@@ -205,7 +205,7 @@ export default class MagicWand {
   animateRotate() {
     // Obtén la rotación actual
     const currentRotation = this.magicWand.rotation.clone();
-    observerEmitter.trigger(EVENTS.AUDIO.EFFECTS.PLAY_EFFECT, ["reset"]);
+    observerEmitter.trigger(EVENTS.AUDIO.PLAY_EFFECT, ["reset"]);
 
     // Calcula el incremento de rotación que deseas agregar
     const increment = {

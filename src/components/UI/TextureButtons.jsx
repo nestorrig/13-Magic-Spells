@@ -36,7 +36,7 @@ export const TextureButtons = () => {
   const handleButtonClick = (index, alt) => {
     setSelectedButton(index); // Actualiza el botón seleccionado
     observerEmitter.trigger(EVENTS.CHANGE_TEXTURE, [alt]);
-    observerEmitter.trigger(EVENTS.AUDIO.EFFECTS.PLAY_EFFECT, ["texture"]);
+    observerEmitter.trigger(EVENTS.AUDIO.PLAY_EFFECT, ["texture"]);
   };
 
   return (
