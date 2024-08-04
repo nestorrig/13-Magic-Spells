@@ -100,7 +100,10 @@ export default class Camera {
   setControls() {
     this.controls = new OrbitControls(this.instance, this.canvas);
     this.controls.target.set(0, 2.6, -7);
-    // this.controls.enableDamping = true;
+    this.controls.enablePan = false;
+    this.controls.enableRotate = false;
+    this.controls.maxDistance = 7;
+    this.controls.minDistance = 0.5;
 
     if (this.debug.active) {
       this.debugFolder
@@ -188,6 +191,7 @@ export default class Camera {
   animateCamera(position, target, duration) {
     const initialPosition = position.clone();
     const initialTarget = target.clone();
+    this.controls.enabled = false;
     observerEmitter.trigger(EVENTS.AUDIO.PLAY_EFFECT, ["camera"]);
     gsap.to(this.instance.position, {
       x: initialPosition.x,
@@ -206,6 +210,9 @@ export default class Camera {
       duration: duration,
       onUpdate: () => {
         this.controls.update();
+      },
+      onComplete: () => {
+        this.controls.enabled = true;
       },
     });
   }
