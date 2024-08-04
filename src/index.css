@@ -69,7 +69,8 @@ body {
   transform: translateX(6px) rotate(360deg);
 }
 
-.Mode-button:disabled {
+.Mode-button:disabled,
+.Reset-button:disabled {
   opacity: 0.5 !important;
 }
 

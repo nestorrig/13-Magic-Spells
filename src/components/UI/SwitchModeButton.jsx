@@ -23,6 +23,11 @@ export const SwitchModeButton = () => {
 
   const handleButtonClick = () => {
     observerEmitter.trigger(EVENTS.SWITCH_MODE, [isMagicMode]);
+    observerEmitter.trigger(
+      isMagicMode
+        ? EVENTS.CAMERA_MOVES.MOVE_TO_HOME
+        : EVENTS.CAMERA_MOVES.MOVE_TO_GENERAL
+    );
     setIsDisabled(true);
     setIsMagicMode(!isMagicMode);
 
@@ -43,6 +48,7 @@ export const SwitchModeButton = () => {
     setTimeout(() => {
       setIsDisabled(false);
     }, duration * 1000);
+
   };
 
   return (

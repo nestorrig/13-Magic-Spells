@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import Experience from './Experience.js'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import gsap from "gsap";
+import { EVENTS, observerEmitter } from "../Events/Events.js";
 
 const cameraPlaces = {
   center: {
@@ -57,6 +58,7 @@ export default class Camera {
     }
     this.setInstance();
     this.setControls();
+    this.cameraEvents();
   }
 
   setInstance() {
@@ -211,6 +213,44 @@ export default class Camera {
   resize() {
     this.instance.aspect = this.sizes.width / this.sizes.height;
     this.instance.updateProjectionMatrix();
+  }
+
+  cameraEvents() {
+    observerEmitter.on(EVENTS.CAMERA_MOVES.MOVE_TO_HOME, () => {
+      this.animateCamera(
+        cameraPlaces.initial.position,
+        cameraPlaces.initial.target,
+        cameraPlaces.initial.duration
+      );
+    });
+    observerEmitter.on(EVENTS.CAMERA_MOVES.MOVE_TO_GENERAL, () => {
+      this.animateCamera(
+        cameraPlaces.top.position,
+        cameraPlaces.top.target,
+        cameraPlaces.top.duration
+      );
+    });
+    observerEmitter.on(EVENTS.CAMERA_MOVES.MOVE_TO_TABLE, () => {
+      this.animateCamera(
+        cameraPlaces.topTable.position,
+        cameraPlaces.topTable.target,
+        cameraPlaces.topTable.duration
+      );
+    });
+    observerEmitter.on(EVENTS.CAMERA_MOVES.MOVE_TO_TREES, () => {
+      this.animateCamera(
+        cameraPlaces.topTree.position,
+        cameraPlaces.topTree.target,
+        cameraPlaces.topTree.duration
+      );
+    });
+    observerEmitter.on(EVENTS.CAMERA_MOVES.MOVE_TO_ROCKS, () => {
+      this.animateCamera(
+        cameraPlaces.topRocks.position,
+        cameraPlaces.topRocks.target,
+        cameraPlaces.topRocks.duration
+      );
+    });
   }
 
   update() {
